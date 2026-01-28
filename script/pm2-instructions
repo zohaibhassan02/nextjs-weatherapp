@@ -1,0 +1,5 @@
+after 1st time pm2 has been created, it won't be started automatically after the system will be rebooted, need to put following commainds
+
+1- pm2 startup systemd -u ubuntu --hp /home/ubuntu
+2- sudo env PATH=$PATH:/home/ubuntu/.nvm/versions/node/v20.19.1/bin pm2 startup systemd -u ubuntu --hp /home/ubuntu
+3- pm2 save

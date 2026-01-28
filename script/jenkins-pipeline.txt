@@ -1,0 +1,28 @@
+pipeline {
+    agent any
+    
+  
+ stages {
+      stage('Checkout') {
+          steps {
+              git url: 'https://github.com/k8snative/nextjs-weatherapp.git', branch: 'main'
+          }
+      }
+      stage('Running script on remote server') {
+          steps {
+           sshagent(['jenkins-server']) {
+                    sh '''
+                        
+                        ssh -o StrictHostKeyChecking=no ubuntu@54.145.12.201 '
+                        echo "Executing on remote server"
+                        cd /var/www/html/nextjs
+                        ./script.sh
+                        '
+                    '''
+                }
+            }
+      }
+      
+    }
+  
+}
