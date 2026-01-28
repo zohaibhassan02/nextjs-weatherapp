@@ -19,31 +19,27 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
-          script: |
-            set -e
+script: |
+  set -e
+  cd /var/www/html/nextjs-weatherapp
 
-            cd /var/www/html/nextjs-weatherapp
+  git remote set-url origin https://github.com/zohaibhassan02/nextjs-weatherapp.git
+  git fetch origin
+  git reset --hard origin/main
 
-            # Make sure the server repo points to YOUR GitHub repo
-            git remote set-url origin https://github.com/zohaibhassan02/nextjs-weatherapp.git
+  export NVM_DIR="$HOME/.nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 
-            git fetch origin
-            git reset --hard origin/main
+  nvm install 20
+  nvm use 20
+  node -v
+  npm -v
 
-            # Load NVM in non-interactive shells (GitHub Actions SSH)
-            export NVM_DIR="$HOME/.nvm"
-            [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+  timeout 8m npm ci --no-audit --no-fund || timeout 8m npm install --no-audit --no-fund
+  command -v pm2 >/dev/null 2>&1 || npm install -g pm2
+  timeout 12m npm run build
 
-            # Ensure Node + npm exist
-            nvm install 20
-            nvm use 20
+  pm2 restart weather-app --update-env || pm2 start npm --name "weather-app" -- run start
+  pm2 save
 
-            node -v
-            npm -v
-
-            npm ci || npm install
-            command -v pm2 >/dev/null 2>&1 || npm install -g pm2
-            npm run build
-            pm2 restart weather-app || pm2 start npm --name "weather-app" -- run start
-            pm2 save
 
