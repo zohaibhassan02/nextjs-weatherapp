@@ -1,0 +1,106 @@
+/* General styles for the entire page */
+body {
+  background-color: #121212; /* Dark background for the page */
+  color: #fff; /* White text color for better contrast */
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Container for the weather app */
+.weather-container {
+  max-width: 800px;
+  margin: 50px auto;
+  text-align: center;
+  padding: 20px;
+  background-color: #333; /* Dark background for the weather container */
+  border-radius: 10px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Title style */
+.app-title {
+  font-size: 2.5rem;
+  color: #4CAF50; /* Green color for the title */
+  margin-bottom: 20px;
+}
+
+/* Input search bar styling */
+input[type="text"] {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  margin-bottom: 20px;
+  border: 2px solid #4CAF50; /* Green border */
+  border-radius: 5px;
+  background-color: #222; /* Dark background for the input */
+  color: #fff; /* White text color */
+  transition: all 0.3s ease;
+}
+
+/* Search button */
+button {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  background-color: #4CAF50; /* Green button */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background-color: #388e3c; /* Darker green on hover */
+}
+
+/* Error message style */
+.error-message {
+  color: #e57373; /* Red color for error messages */
+  font-size: 1.2rem;
+  margin-top: 10px;
+}
+
+/* Weather card style */
+.weather-card {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #212121; /* Dark card background */
+  border-radius: 10px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Weather icon styling */
+.weather-icon img {
+  width: 120px;
+  height: 120px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  background-color: #4CAF50; /* Green background to match the theme */
+  padding: 15px; /* Adds space around the icon to enhance visibility */
+  border: 4px solid #81c784; /* Light green border to make the icon pop */
+  filter: invert(1) grayscale(1) brightness(100%); /* Makes the icon white */
+}
+
+/* Weather description and temperature styling */
+.weather-description,
+.weather-temp,
+.weather-humidity {
+  font-size: 1.2rem;
+  margin: 5px 0;
+}
+
+.weather-temp {
+  color: #81c784; /* Lighter green for temperature */
+}
+
+.weather-humidity {
+  color: #80deea; /* Light cyan for humidity */
+}
+
+/* Loading text style */
+p {
+  font-size: 1.2rem;
+  color: #9e9e9e; /* Light gray for loading text */
+}
