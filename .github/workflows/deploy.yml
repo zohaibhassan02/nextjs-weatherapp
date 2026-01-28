@@ -3,7 +3,7 @@ name: Deploy Next.js to EC2
 on:
   push:
     branches:
-      - main   # change if your branch is different
+      - main
 
 jobs:
   deploy:
@@ -19,27 +19,25 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
-script: |
-  set -e
-  cd /var/www/html/nextjs-weatherapp
+          script: |
+            set -e
+            cd /var/www/html/nextjs-weatherapp
 
-  git remote set-url origin https://github.com/zohaibhassan02/nextjs-weatherapp.git
-  git fetch origin
-  git reset --hard origin/main
+            git remote set-url origin https://github.com/zohaibhassan02/nextjs-weatherapp.git
+            git fetch origin
+            git reset --hard origin/main
 
-  export NVM_DIR="$HOME/.nvm"
-  [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 
-  nvm install 20
-  nvm use 20
-  node -v
-  npm -v
+            nvm install 20
+            nvm use 20
+            node -v
+            npm -v
 
-  timeout 8m npm ci --no-audit --no-fund || timeout 8m npm install --no-audit --no-fund
-  command -v pm2 >/dev/null 2>&1 || npm install -g pm2
-  timeout 12m npm run build
+            timeout 8m npm ci --no-audit --no-fund || timeout 8m npm install --no-audit --no-fund
+            command -v pm2 >/dev/null 2>&1 || npm install -g pm2
+            timeout 12m npm run build
 
-  pm2 restart weather-app --update-env || pm2 start npm --name "weather-app" -- run start
-  pm2 save
-
-
+            pm2 restart weather-app --update-env || pm2 start npm --name "weather-app" -- run start
+            pm2 save
